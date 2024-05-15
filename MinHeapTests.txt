@@ -1,0 +1,28 @@
+insert(Ride r)
+    empty heap
+    heap with item
+    heap as last node
+    heap in middle node
+    heap in root node
+    insert disallowed time
+remove(Ride r)
+    multiple items
+    single item
+    item does not exist
+    empty heap
+    first heap item
+    last heap item in array
+isEmpty()
+    with items
+    without items
+    single item
+peek()
+    empty heap
+    heap with items
+heapify(Ride[] rides, int rideNum)
+    unknown need to check what this means
+dump()
+    emtpy stack 
+    heap with multiple items
+sort()
+    not sure how to test this

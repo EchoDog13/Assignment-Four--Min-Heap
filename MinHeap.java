@@ -18,7 +18,7 @@ public class MinHeap {
         upheap(size);
         size++;}
 
-    public void upheap (int pos){
+    private void upheap (int pos){
         int posChild = pos;
         while(posChild >1){
             int posParent = posChild/2;
@@ -30,7 +30,8 @@ public class MinHeap {
         }}
     }
 
-    public void downheap(int pos) {
+
+    private void downheap(int pos) {
         int posParent = pos;
 
         while (posParent <= size / 2) {
@@ -139,5 +140,11 @@ public class MinHeap {
             return true;
         } else return false;
     }
+
+    public void sort(){
+        upheap(1);
+        downheap(1);
+    }
+
 
 }
