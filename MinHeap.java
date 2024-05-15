@@ -88,7 +88,7 @@ public class MinHeap {
         if (posToRemove == -1) {
             // Ride not found in the heap
             return;
- ss        }
+         }
 
         // Swap the ride to remove with the last ride in the heap
        swap(posToRemove, size-1);
@@ -96,9 +96,6 @@ public class MinHeap {
         size--; // Decrement the size of the heap
     System.out.println(size);
         if (posToRemove <= size) {
-            // If the removed ride was not the last one, restore heap property
-           upheap(posToRemove);
-            //
            downheap(posToRemove);
         }
     }
