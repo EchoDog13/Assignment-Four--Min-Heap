@@ -10,6 +10,14 @@ public class MinHeap {
        // size = 1;
     }
 
+    public void heapify(Ride[] rides, int rideNum){
+         this.heap = new Ride[rideNum + 1];
+        if (rideNum<=20) {
+        for (Ride ride : rides) {
+            insert(ride);
+        }}
+    }
+
     public void insert(Ride r) {
         if (size == heap.length) {
             heap = Arrays.copyOf(heap, size * 2); // Double the capacity if full
@@ -131,7 +139,10 @@ public class MinHeap {
     }
 
     public void peek(){
-    outputRide(1);
+        if (Ride.isEmpty()==true) {
+            System.out.println("Error: Cannot peek heap as it contain no items");
+        }
+        outputRide(1);
     }
 
     public boolean isEmpty(){
@@ -141,10 +152,11 @@ public class MinHeap {
         } else return false;
     }
 
-    public void sort(){
+   /**  public Ride sort(){
         upheap(1);
         downheap(1);
+       
     }
-
+*/
 
 }

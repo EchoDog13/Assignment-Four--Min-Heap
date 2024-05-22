@@ -1,20 +1,30 @@
 import java.time.LocalTime;
-import java.util.LinkedList;
-import java.util.List;
 
-public class Ride {
+
+public class Ride implements Comparable<Ride> {
      int rideID;
      LocalTime requestTime;
      String[] passengerNames = new String[5];
      int startLocation;
      int endLocation;
-
+     
     public Ride(int rideID, LocalTime requestTime, int startLocation, int endLocation, String passengerNames) {
         this.rideID = rideID;
         this.requestTime = requestTime;
         this.passengerNames =  passengerNames.split(",");
         this.startLocation = startLocation;
         this.endLocation = endLocation;
+    }
+
+    @Override
+    public int compareTo(Ride otherRide) {
+        return this.requestTime.compareTo(otherRide.requestTime);
+    }
+
+
+    public static boolean isEmpty() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'isEmpty'");
     }
 
 

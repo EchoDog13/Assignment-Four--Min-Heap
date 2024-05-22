@@ -2,7 +2,6 @@
 //Import statements 
 import org.junit.Assert;
 import org.junit.jupiter.api.*;
-import java.beans.Transient;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.LocalTime;

@@ -26,3 +26,20 @@ dump()
     heap with multiple items
 sort()
     not sure how to test this
+
+
+
+
+
+OPTIMISATION:
+
+Conditions to check in this order: 
+    - Passenger totals less or eqaul to 6 (Ride1.Count + Ride 2.Count <= 6)
+    - Rides are within 10 minutes of each other ()
+    - Start and end IDs are the same (Ride1.StartID == Ride2.StartID && Ride1.End  Ride2.End)
+    
+If Meet:
+Insert New Ride
+Remove old rides
+
+
