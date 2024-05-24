@@ -14,8 +14,10 @@ public class MinHeap {
          this.heap = new Ride[rideNum + 1];
         if (rideNum<=20) {
         for (Ride ride : rides) {
-            insert(ride);
-        }}
+            if  (ride !=null){
+            insert(ride);}
+        }
+        }
     }
 
     public void insert(Ride r) {
@@ -31,13 +33,16 @@ public class MinHeap {
         while(posChild >1){
             int posParent = posChild/2;
             if ((heap[posChild] != null) && (heap[posParent] != null)){
-            if (heap[posChild].rideID < heap[posParent].rideID){
-            swap(posChild, posParent);
+            if (heap[posChild].requestTime.compareTo(heap[posParent].requestTime)<0) {
+                swap(posChild, posParent);
             }
+           /**  if (heap[posChild].rideID < heap[posParent].rideID){
+           
+            }
+            */
             posChild = posParent;
         }}
     }
-
 
     private void downheap(int pos) {
         int posParent = pos;
@@ -50,15 +55,14 @@ public class MinHeap {
             // Check if right child exists and is smaller than the left child
 
             if ((heap[leftChild] != null) && (heap[rightChild]) !=null){
-                if ( heap[rightChild].rideID < heap[leftChild].rideID) {
+                if ( heap[rightChild].requestTime.compareTo(heap[leftChild].requestTime)<0) {
                 smallestChild = rightChild;
                 }
-
             }
 
             // Check if the smallest child is not null and compare parent with it
             if (heap[smallestChild]!= null){
-            if (heap[posParent].rideID > heap[smallestChild].rideID) {
+            if (heap[posParent].requestTime.compareTo(heap[smallestChild].requestTime)>0) {
                 swap(posParent, smallestChild);
                 posParent = smallestChild;
             } }else {
@@ -67,16 +71,11 @@ public class MinHeap {
         }
     }
 
-
-
-
-
     public void swap(int pos1, int pos2){
         Ride tempValue = heap[pos1];
         heap[pos1] = heap[pos2];
         heap[pos2] = tempValue;
     }
-
 
     public void remove(Ride rideToRemove) {
         if (size == 0) {
@@ -109,9 +108,6 @@ public class MinHeap {
         }
     }
 
-
-
-
     public void dump() {
         int i = 1;
         while(heap[i] !=null) {
@@ -131,7 +127,9 @@ public class MinHeap {
         System.out.println("Passengers:");
 
         for (String item : ride.passengerNames) {
-            System.out.println(item);
+            if (item != null) {
+                System.out.println(item);
+            }
         }
 
         System.out.println("--------------------");
@@ -139,24 +137,30 @@ public class MinHeap {
     }
 
     public void peek(){
-        if (Ride.isEmpty()==true) {
+         if (isEmpty()==true) {
             System.out.println("Error: Cannot peek heap as it contain no items");
         }
         outputRide(1);
     }
 
-    public boolean isEmpty(){
 
-        if (heap[1] == null){
-            return true;
-        } else return false;
+
+    public boolean isEmpty() {
+        return heap[1] == null;
     }
 
-   /**  public Ride sort(){
+
+    public void sort(){
         upheap(1);
-        downheap(1);
-       
+        downheap(1); 
     }
-*/
+
+    public void optimise(){
+        for (Ride ride : heap) {
+            //if (ride.requestTime.compareTo()) {
+                
+          //  }
+        }
+    }
 
 }

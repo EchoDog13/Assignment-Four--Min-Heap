@@ -8,10 +8,10 @@ public class Ride implements Comparable<Ride> {
      int startLocation;
      int endLocation;
      
-    public Ride(int rideID, LocalTime requestTime, int startLocation, int endLocation, String passengerNames) {
+    public Ride(int rideID, LocalTime requestTime, int startLocation, int endLocation) {
         this.rideID = rideID;
         this.requestTime = requestTime;
-        this.passengerNames =  passengerNames.split(",");
+       // this.passengerNames =  passengerNames.split(",");
         this.startLocation = startLocation;
         this.endLocation = endLocation;
     }
@@ -20,12 +20,16 @@ public class Ride implements Comparable<Ride> {
     public int compareTo(Ride otherRide) {
         return this.requestTime.compareTo(otherRide.requestTime);
     }
+    public void addPassenger(String passengerNames){
 
+        this.passengerNames = passengerNames.split(",");
 
-    public static boolean isEmpty() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isEmpty'");
     }
+
+    
+
+
+
 
 
 }
