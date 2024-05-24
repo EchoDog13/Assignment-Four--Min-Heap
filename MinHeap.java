@@ -13,14 +13,18 @@ public class MinHeap {
     public void heapify(Ride[] rides, int rideNum){
          this.heap = new Ride[rideNum + 1];
         if (rideNum<=20) {
+            
+        
         for (Ride ride : rides) {
             if  (ride !=null){
             insert(ride);}
-        }
-        }
+        }}
     }
 
     public void insert(Ride r) {
+        if (size <= 20) {
+            
+        
         if (size == heap.length) {
             heap = Arrays.copyOf(heap, size * 2); // Double the capacity if full
         }
@@ -34,7 +38,8 @@ public class MinHeap {
         }
         heap[size] = r;
         upheap(size);
-        size++;}
+        size++;
+        }}
 
     private void upheap (int pos){
         int posChild = pos;
@@ -46,6 +51,7 @@ public class MinHeap {
             }
             posChild = posParent;
         }}
+    
     }
 
     private void downheap(int pos) {
@@ -114,7 +120,7 @@ public class MinHeap {
 
     public void dump() {
         int i = 1;
-        while(heap[i] !=null) {
+            while(heap[i] !=null) {
             // Start from index 1 since index 0 is unused
             outputRide(i);
             i++;
