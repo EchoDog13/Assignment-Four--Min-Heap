@@ -24,6 +24,14 @@ public class MinHeap {
         if (size == heap.length) {
             heap = Arrays.copyOf(heap, size * 2); // Double the capacity if full
         }
+            
+        
+        for (Ride ride : heap) {
+            if (ride != null) {
+            if (ride.rideID == r.rideID) {
+                return;
+            }}
+        }
         heap[size] = r;
         upheap(size);
         size++;}
@@ -36,10 +44,6 @@ public class MinHeap {
             if (heap[posChild].requestTime.compareTo(heap[posParent].requestTime)<0) {
                 swap(posChild, posParent);
             }
-           /**  if (heap[posChild].rideID < heap[posParent].rideID){
-           
-            }
-            */
             posChild = posParent;
         }}
     }
