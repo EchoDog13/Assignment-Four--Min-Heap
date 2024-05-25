@@ -3,22 +3,33 @@ import java.util.Arrays;
 public class MinHeap {
      Ride[] heap;
      int size = 1;
-    private static final int DEFAULT_CAPACITY = 10;
+    private static final int DEFAULT_CAPACITY = 20 + 1;
 
     public MinHeap() {
         this.heap = new Ride[DEFAULT_CAPACITY];
        // size = 1;
     }
+    /**
+     * 
+     * @param rides Array of Ride Class to replace the existing heap
+     * @param rideNum Number of rides contained in the rides array, maximum is 20
+     * Indiviudal insert approach is used rather than directly replacing the array to check for null values and to ensure that the first index is left blank to enable array equation functionality to continue
+     */
+    public void heapify(Ride[] rides, int rideNum) {
+        if (rideNum > 20) {
+            // If more than 20 rides are provided, do not modify the heap
+            return;
+        }
+       
+        this.heap = new Ride[DEFAULT_CAPACITY + 1]; // Reinitialize with default capacity
+        this.size = 0; // Reset the size
 
-    public void heapify(Ride[] rides, int rideNum){
-         this.heap = new Ride[rideNum + 1];
-        if (rideNum<=20) {
-            
-        
+
         for (Ride ride : rides) {
-            if  (ride !=null){
-            insert(ride);}
-        }}
+            if (ride != null) {
+                insert(ride);
+            }
+        } 
     }
 
     public void insert(Ride r) {
@@ -26,7 +37,7 @@ public class MinHeap {
             
         
         if (size == heap.length) {
-            heap = Arrays.copyOf(heap, size * 2); // Double the capacity if full
+         //   heap = Arrays.copyOf(heap, size * 2); // Double the capacity if full
         }
             
         
@@ -120,8 +131,8 @@ public class MinHeap {
 
     public void dump() {
         int i = 1;
-            while(heap[i] !=null) {
-            // Start from index 1 since index 0 is unused
+
+        while (i < heap.length && heap[i] != null) {
             outputRide(i);
             i++;
         }

@@ -161,49 +161,14 @@ public void insertMultipleRides(){
 
     /**
      * Insert Heapify Array with more than 20 items
+     * Empty Heap
      */
 @Test
 @DisplayName("Insert using Heapify Array of more than 20 rides")
 public void heapifyInsertMoreThan20Items(){
     MinHeap testHeap = new MinHeap();
-    Ride rides[] = new Ride[20];
+    Ride rides[] = new Ride[21];
     rides[0] = new Ride(57, LocalTime.parse("08:15:30"), 200, 700);
-rides[1] = new Ride(42, LocalTime.parse("12:45:00"), 300, 800);
-rides[2] = new Ride(86, LocalTime.parse("05:23:12"), 150, 600);
-rides[3] = new Ride(15, LocalTime.parse("19:30:45"), 250, 750);
-rides[4] = new Ride(99, LocalTime.parse("03:50:20"), 350, 850);
-rides[5] = new Ride(23, LocalTime.parse("14:05:10"), 275, 725);
-rides[6] = new Ride(61, LocalTime.parse("21:35:47"), 225, 675);
-rides[7] = new Ride(34, LocalTime.parse("06:12:34"), 320, 770);
-rides[8] = new Ride(72, LocalTime.parse("10:50:05"), 180, 680);
-rides[9] = new Ride(45, LocalTime.parse("17:22:48"), 240, 740);
-rides[10] = new Ride(88, LocalTime.parse("04:45:30"), 360, 860);
-rides[11] = new Ride(17, LocalTime.parse("09:13:55"), 290, 790);
-rides[12] = new Ride(51, LocalTime.parse("13:57:19"), 210, 710);
-rides[13] = new Ride(76, LocalTime.parse("18:03:23"), 330, 780);
-rides[14] = new Ride(28, LocalTime.parse("20:28:49"), 195, 695);
-rides[15] = new Ride(63, LocalTime.parse("07:37:11"), 265, 765);
-rides[16] = new Ride(14, LocalTime.parse("11:44:33"), 315, 815);
-rides[17] = new Ride(90, LocalTime.parse("15:18:06"), 185, 685);
-rides[18] = new Ride(37, LocalTime.parse("23:25:42"), 355, 855);
-rides[19] = new Ride(82, LocalTime.parse("02:39:14"), 205, 705);
-rides[20] = new Ride(49, LocalTime.parse("01:30:25"), 290, 740);
-testHeap.heapify(rides, 20);
-
-Assert.assertEquals("", outputStreamCaptor.toString().trim());
-
-
-}
-
- /**
-     * Insert Heapify Array with more than 20 items
-     */
-    @Test
-    @DisplayName("Insert using Heapify Array of 20 rides")
-    public void heapifyInsert20Items(){
-        MinHeap testHeap = new MinHeap();
-        Ride rides[] = new Ride[20];
-        rides[0] = new Ride(57, LocalTime.parse("08:15:30"), 200, 700);
     rides[1] = new Ride(42, LocalTime.parse("12:45:00"), 300, 800);
     rides[2] = new Ride(86, LocalTime.parse("05:23:12"), 150, 600);
     rides[3] = new Ride(15, LocalTime.parse("19:30:45"), 250, 750);
@@ -223,16 +188,343 @@ Assert.assertEquals("", outputStreamCaptor.toString().trim());
     rides[17] = new Ride(90, LocalTime.parse("15:18:06"), 185, 685);
     rides[18] = new Ride(37, LocalTime.parse("23:25:42"), 355, 855);
     rides[19] = new Ride(82, LocalTime.parse("02:39:14"), 205, 705);
-    testHeap.heapify(rides, 20);
+    rides[20] = new Ride(49, LocalTime.parse("01:30:25"), 290, 740);
+    testHeap.heapify(rides, 21);
+
+Assert.assertEquals("", outputStreamCaptor.toString().trim());
+
+
+}
+
+ /**
+     * Insert Heapify Array with 20 items
+     * Empty Heap
+     */
+
+     @Test
+     @DisplayName("Insert 20 items using heapify")
+     public void insert20ItemsUsingHeapify(){
+        MinHeap testHeap = new MinHeap();
+
+        Ride rides[] = new Ride[20];
+        rides[0] = new Ride(57, LocalTime.parse("00:15:30"), 200, 700);
+        rides[1] = new Ride(42, LocalTime.parse("12:45:00"), 300, 800);
+        rides[2] = new Ride(86, LocalTime.parse("05:23:12"), 150, 600);
+        rides[3] = new Ride(15, LocalTime.parse("19:30:45"), 250, 750);
+        rides[4] = new Ride(99, LocalTime.parse("03:50:20"), 350, 850);
+        rides[5] = new Ride(23, LocalTime.parse("14:05:10"), 275, 725);
+        rides[6] = new Ride(61, LocalTime.parse("21:35:47"), 225, 675);
+        rides[7] = new Ride(34, LocalTime.parse("06:12:34"), 320, 770);
+        rides[8] = new Ride(72, LocalTime.parse("10:50:05"), 180, 680);
+        rides[9] = new Ride(45, LocalTime.parse("17:22:48"), 240, 740);
+        rides[10] = new Ride(88, LocalTime.parse("04:45:30"), 360, 860);
+        rides[11] = new Ride(17, LocalTime.parse("09:13:55"), 290, 790);
+        rides[12] = new Ride(51, LocalTime.parse("13:57:19"), 210, 710);
+        rides[13] = new Ride(76, LocalTime.parse("18:03:23"), 330, 780);
+        rides[14] = new Ride(28, LocalTime.parse("20:28:49"), 195, 695);
+        rides[15] = new Ride(63, LocalTime.parse("07:37:11"), 265, 765);
+        rides[16] = new Ride(14, LocalTime.parse("11:44:33"), 315, 815);
+        rides[17] = new Ride(90, LocalTime.parse("15:18:06"), 185, 685);
+        rides[18] = new Ride(37, LocalTime.parse("23:25:42"), 355, 855);
+        rides[19] = new Ride(82, LocalTime.parse("02:39:14"), 205, 705);
+  testHeap.heapify(rides, 20);
+  testHeap.dump();
+  Assertions.assertEquals("""
+--- Ride: 57 -------
+Time : 00:15:30
+Start ID : 200
+End ID : 700
+Passengers:
+--------------------
+--- Ride: 82 -------
+Time : 02:39:14
+Start ID : 205
+End ID : 705
+Passengers:
+--------------------
+--- Ride: 86 -------
+Time : 05:23:12
+Start ID : 150
+End ID : 600
+Passengers:
+--------------------
+--- Ride: 34 -------
+Time : 06:12:34
+Start ID : 320
+End ID : 770
+Passengers:
+--------------------
+--- Ride: 99 -------
+Time : 03:50:20
+Start ID : 350
+End ID : 850
+Passengers:
+--------------------
+--- Ride: 17 -------
+Time : 09:13:55
+Start ID : 290
+End ID : 790
+Passengers:
+--------------------
+--- Ride: 76 -------
+Time : 18:03:23
+Start ID : 330
+End ID : 780
+Passengers:
+--------------------
+--- Ride: 63 -------
+Time : 07:37:11
+Start ID : 265
+End ID : 765
+Passengers:
+--------------------
+--- Ride: 72 -------
+Time : 10:50:05
+Start ID : 180
+End ID : 680
+Passengers:
+--------------------
+--- Ride: 88 -------
+Time : 04:45:30
+Start ID : 360
+End ID : 860
+Passengers:
+--------------------
+--- Ride: 42 -------
+Time : 12:45
+Start ID : 300
+End ID : 800
+Passengers:
+--------------------
+--- Ride: 23 -------
+Time : 14:05:10
+Start ID : 275
+End ID : 725
+Passengers:
+--------------------
+--- Ride: 51 -------
+Time : 13:57:19
+Start ID : 210
+End ID : 710
+Passengers:
+--------------------
+--- Ride: 61 -------
+Time : 21:35:47
+Start ID : 225
+End ID : 675
+Passengers:
+--------------------
+--- Ride: 28 -------
+Time : 20:28:49
+Start ID : 195
+End ID : 695
+Passengers:
+--------------------
+--- Ride: 15 -------
+Time : 19:30:45
+Start ID : 250
+End ID : 750
+Passengers:
+--------------------
+--- Ride: 14 -------
+Time : 11:44:33
+Start ID : 315
+End ID : 815
+Passengers:
+--------------------
+--- Ride: 90 -------
+Time : 15:18:06
+Start ID : 185
+End ID : 685
+Passengers:
+--------------------
+--- Ride: 37 -------
+Time : 23:25:42
+Start ID : 355
+End ID : 855
+Passengers:
+--------------------
+--- Ride: 45 -------
+Time : 17:22:48
+Start ID : 240
+End ID : 740
+Passengers:
+--------------------"""
+          
+, outputStreamCaptor.toString().trim());
+     }
+
+
+    /**
+     * 
+     * Expected Behaviour is that the entire heap is replaced
+     */
+    @Test
+    @DisplayName("Insert using Heapify Array of 20 rides into Full Heap")
+    public void heapifyInsertNonEmpty20Items(){
+
+        MinHeap testHeap = new MinHeap();
+       
+        testHeap.insert(new Ride(1, LocalTime.parse("08:15:30"), 200, 700));
+        testHeap.insert(new Ride(2, LocalTime.parse("12:45:00"), 300, 800));
+        testHeap.insert(new Ride(3, LocalTime.parse("05:23:12"), 150, 600));
+        testHeap.insert(new Ride(4, LocalTime.parse("19:30:45"), 250, 750));
+        testHeap.insert(new Ride(5, LocalTime.parse("09:01:45"), 500, 1000));
+        testHeap.insert(new Ride(6, LocalTime.parse("14:20:10"), 180, 650));
+        testHeap.insert(new Ride(7, LocalTime.parse("11:15:20"), 220, 720));
+        testHeap.insert(new Ride(8, LocalTime.parse("23:59:59"), 300, 800));
+        testHeap.insert(new Ride(9, LocalTime.parse("00:00:01"), 400, 900));
+        testHeap.insert(new Ride(10, LocalTime.parse("15:45:30"), 250, 750));
+        testHeap.insert(new Ride(11, LocalTime.parse("10:10:10"), 200, 700));
+        testHeap.insert(new Ride(12, LocalTime.parse("13:13:13"), 320, 820));
+        testHeap.insert(new Ride(13, LocalTime.parse("17:17:17"), 230, 770));
+        testHeap.insert(new Ride(14, LocalTime.parse("21:21:21"), 270, 810));
+        testHeap.insert(new Ride(15, LocalTime.parse("04:04:04"), 190, 710));
+        testHeap.insert(new Ride(16, LocalTime.parse("06:06:06"), 240, 760));
+        testHeap.insert(new Ride(17, LocalTime.parse("07:07:07"), 210, 730));
+        testHeap.insert(new Ride(18, LocalTime.parse("08:08:08"), 290, 790));
+        testHeap.insert(new Ride(19, LocalTime.parse("09:09:09"), 310, 830));
+        testHeap.insert(new Ride(20, LocalTime.parse("20:20:20"), 260, 780));
+        Ride rides[] = new Ride[20];
+        rides[0] = new Ride(57, LocalTime.parse("08:15:30"), 200, 700);
+        rides[1] = new Ride(42, LocalTime.parse("12:45:00"), 300, 800);
+        rides[2] = new Ride(86, LocalTime.parse("05:23:12"), 150, 600);
+        rides[3] = new Ride(15, LocalTime.parse("19:30:45"), 250, 750);
+        rides[4] = new Ride(99, LocalTime.parse("03:50:20"), 350, 850);
+        rides[5] = new Ride(23, LocalTime.parse("14:05:10"), 275, 725);
+        rides[6] = new Ride(61, LocalTime.parse("21:35:47"), 225, 675);
+        rides[7] = new Ride(34, LocalTime.parse("06:12:34"), 320, 770);
+        rides[8] = new Ride(72, LocalTime.parse("10:50:05"), 180, 680);
+        rides[9] = new Ride(45, LocalTime.parse("17:22:48"), 240, 740);
+        rides[10] = new Ride(88, LocalTime.parse("04:45:30"), 360, 860);
+        rides[11] = new Ride(17, LocalTime.parse("09:13:55"), 290, 790);
+        rides[12] = new Ride(51, LocalTime.parse("13:57:19"), 210, 710);
+        rides[13] = new Ride(76, LocalTime.parse("18:03:23"), 330, 780);
+        rides[14] = new Ride(28, LocalTime.parse("20:28:49"), 195, 695);
+        rides[15] = new Ride(63, LocalTime.parse("07:37:11"), 265, 765);
+        rides[16] = new Ride(14, LocalTime.parse("11:44:33"), 315, 815);
+        rides[17] = new Ride(90, LocalTime.parse("15:18:06"), 185, 685);
+        rides[18] = new Ride(37, LocalTime.parse("23:25:42"), 355, 855);
+        rides[19] = new Ride(82, LocalTime.parse("02:39:14"), 205, 705);
+  testHeap.heapify(rides, 20);
     testHeap.dump();
     
-    Assert.assertEquals("", outputStreamCaptor.toString().trim());
-    
-    
+    Assert.assertEquals("""
+        --- Ride: 82 -------
+        Time : 02:39:14
+        Start ID : 205
+        End ID : 705
+        Passengers:
+        --------------------
+        --- Ride: 99 -------
+        Time : 03:50:20
+        Start ID : 350
+        End ID : 850
+        Passengers:
+        --------------------
+        --- Ride: 34 -------
+        Time : 06:12:34
+        Start ID : 320
+        End ID : 770
+        Passengers:
+        --------------------
+        --- Ride: 88 -------
+        Time : 04:45:30
+        Start ID : 360
+        End ID : 860
+        Passengers:
+        --------------------
+        --- Ride: 86 -------
+        Time : 05:23:12
+        Start ID : 150
+        End ID : 600
+        Passengers:
+        --------------------
+        --- Ride: 51 -------
+        Time : 13:57:19
+        Start ID : 210
+        End ID : 710
+        Passengers:
+        --------------------
+        --- Ride: 63 -------
+        Time : 07:37:11
+        Start ID : 265
+        End ID : 765
+        Passengers:
+        --------------------
+        --- Ride: 14 -------
+        Time : 11:44:33
+        Start ID : 315
+        End ID : 815
+        Passengers:
+        --------------------
+        --- Ride: 72 -------
+        Time : 10:50:05
+        Start ID : 180
+        End ID : 680
+        Passengers:
+        --------------------
+        --- Ride: 23 -------
+        Time : 14:05:10
+        Start ID : 275
+        End ID : 725
+        Passengers:
+        --------------------
+        --- Ride: 17 -------
+        Time : 09:13:55
+        Start ID : 290
+        End ID : 790
+        Passengers:
+        --------------------
+        --- Ride: 61 -------
+        Time : 21:35:47
+        Start ID : 225
+        End ID : 675
+        Passengers:
+        --------------------
+        --- Ride: 76 -------
+        Time : 18:03:23
+        Start ID : 330
+        End ID : 780
+        Passengers:
+        --------------------
+        --- Ride: 28 -------
+        Time : 20:28:49
+        Start ID : 195
+        End ID : 695
+        Passengers:
+        --------------------
+        --- Ride: 15 -------
+        Time : 19:30:45
+        Start ID : 250
+        End ID : 750
+        Passengers:
+        --------------------
+        --- Ride: 42 -------
+        Time : 12:45
+        Start ID : 300
+        End ID : 800
+        Passengers:
+        --------------------
+        --- Ride: 90 -------
+        Time : 15:18:06
+        Start ID : 185
+        End ID : 685
+        Passengers:
+        --------------------
+        --- Ride: 37 -------
+        Time : 23:25:42
+        Start ID : 355
+        End ID : 855
+        Passengers:
+        --------------------
+        --- Ride: 45 -------
+        Time : 17:22:48
+        Start ID : 240
+        End ID : 740
+        Passengers:
+        --------------------""", outputStreamCaptor.toString().trim());
     }
-
-
-
 
 
 
