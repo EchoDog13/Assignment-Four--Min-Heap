@@ -26,6 +26,11 @@ public class Ride implements Comparable<Ride> {
 
     }
 
+    public void passengerNames(String string) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'passengerNames'");
+    }
+
     
 
 
