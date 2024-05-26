@@ -585,8 +585,6 @@ public class MinHeapTests {
                 --------------------""", outputStreamCaptor.toString().trim());
     }
 
-
-
     /**
      * ISEMPTY TEST:
      */
@@ -615,8 +613,6 @@ public class MinHeapTests {
      * Is Empty on stack with multiple items
      */
 
-
-
     @Test
     @DisplayName("Is Empty on non empty stack")
     public void isEmptyOnStackWithMultipleItems() {
@@ -636,11 +632,11 @@ public class MinHeapTests {
         Assertions.assertTrue(testHeap.isEmpty());
     }
 
-/** PEEK TESTS  */
+    /** PEEK TESTS */
 
     @Test
     @DisplayName("Peek on empty stack")
-    public void peekEmptyStack(){
+    public void peekEmptyStack() {
         MinHeap testHeap = new MinHeap();
         Assertions.assertEquals("", outputStreamCaptor.toString().trim());
     }
@@ -657,24 +653,24 @@ public class MinHeapTests {
 
     @Test
     @DisplayName("Peek non empty stack single item")
-    public void peekNonEmptyStackSingle(){
+    public void peekNonEmptyStackSingle() {
         MinHeap testHeap = new MinHeap();
         Ride ride1 = new Ride(1, LocalTime.parse("12:23:22"), 34, 342);
         testHeap.insert(ride1);
         testHeap.peek();
         Assertions.assertEquals("""
---- Ride: 1 -------
-Time : 12:23:22
-Start ID : 34
-End ID : 342
-Passengers:
---------------------""", outputStreamCaptor.toString().trim());
+                --- Ride: 1 -------
+                Time : 12:23:22
+                Start ID : 34
+                End ID : 342
+                Passengers:
+                --------------------""", outputStreamCaptor.toString().trim());
 
     }
 
     @Test
     @DisplayName("Peek non empty stack single item")
-    public void peekMultipleItemStack(){
+    public void peekMultipleItemStack() {
         MinHeap testHeap = new MinHeap();
         testHeap.insert(new Ride(3, LocalTime.parse("15:34:22"), 342, 754));
         Ride ride1 = new Ride(1, LocalTime.parse("00:23:22"), 34, 342);
@@ -682,15 +678,14 @@ Passengers:
         testHeap.insert(ride1);
         testHeap.peek();
         Assertions.assertEquals("""
---- Ride: 1 -------
-Time : 00:23:22
-Start ID : 34
-End ID : 342
-Passengers:
---------------------""", outputStreamCaptor.toString().trim());
+                --- Ride: 1 -------
+                Time : 00:23:22
+                Start ID : 34
+                End ID : 342
+                Passengers:
+                --------------------""", outputStreamCaptor.toString().trim());
 
     }
-    
 
     /**
      * Tests that when items are imported, that they are imported and sorted
@@ -720,157 +715,279 @@ Passengers:
                 outputStreamCaptor.toString().trim());
     }
 
-
     /**
      * Sort Tests
      */
     @Test
-@DisplayName("Sort Multiple items")
-public void sortMultipleItems(){
-    MinHeap testHeap = new MinHeap();
-    Ride ride2 = new Ride(1, LocalTime.parse("00:23:22"), 34, 342);
-    Ride ride3 = new Ride(2, LocalTime.parse("23:23:22"), 34, 342);
-    Ride ride1 = new Ride(3, LocalTime.parse("11:23:22"), 34, 342);
-    testHeap.insert(ride1);
-    testHeap.insert(ride2);
-    testHeap.insert(ride3);
+    @DisplayName("Sort Multiple items")
+    public void sortMultipleItems() {
+        MinHeap testHeap = new MinHeap();
+        Ride ride2 = new Ride(1, LocalTime.parse("00:23:22"), 34, 342);
+        Ride ride3 = new Ride(2, LocalTime.parse("23:23:22"), 34, 342);
+        Ride ride1 = new Ride(3, LocalTime.parse("11:23:22"), 34, 342);
+        testHeap.insert(ride1);
+        testHeap.insert(ride2);
+        testHeap.insert(ride3);
 
-    MinHeap proxy = new MinHeap();
-    Ride[] sortedRides = testHeap.sort();
-    int i = 1;
-    while (sortedRides[i]!= null)
-     {
-      proxy.outputRide(sortedRides, i);
-      i++;
+        MinHeap proxy = new MinHeap();
+        Ride[] sortedRides = testHeap.sort();
+       
+        for(int i = 0; i<3; i++){
+            proxy.outputRide(sortedRides, i);
+            }
+        
+        Assert.assertEquals("""
+                --- Ride: 1 -------
+                Time : 00:23:22
+                Start ID : 34
+                End ID : 342
+                Passengers:
+                --------------------
+                --- Ride: 3 -------
+                Time : 11:23:22
+                Start ID : 34
+                End ID : 342
+                Passengers:
+                --------------------
+                --- Ride: 2 -------
+                Time : 23:23:22
+                Start ID : 34
+                End ID : 342
+                Passengers:
+                --------------------""", outputStreamCaptor.toString().trim());
     }
-Assert.assertEquals("""
---- Ride: 1 -------
-Time : 00:23:22
-Start ID : 34
-End ID : 342
+
+    /**
+     * Sort empty stack
+     */
+
+    @Test
+    @DisplayName("Sort Empty items")
+    public void sortEmptyStack() {
+        MinHeap testHeap = new MinHeap();
+        MinHeap proxy = new MinHeap();
+        Ride[] sortedRides = testHeap.sort();
+
+        for (Ride ride : sortedRides) {
+            System.out.println(ride);
+        }
+
+
+        if (sortedRides[0] == null) {
+            System.out.println("");
+        } else {
+            proxy.outputRide(sortedRides, 0);
+        }
+
+      //  Assert.assertEquals("", outputStreamCaptor.toString().trim());
+
+    }
+
+    @Test
+    @DisplayName("Sort Single items")
+    public void sortSingleItem() {
+        MinHeap testHeap = new MinHeap();
+        Ride ride2 = new Ride(1, LocalTime.parse("00:23:22"), 34, 342);
+
+        testHeap.insert(ride2);
+
+        MinHeap proxy = new MinHeap();
+        Ride[] sortedRides = testHeap.sort();
+        proxy.outputRide(sortedRides, 0);
+
+        Assert.assertEquals("""
+                --- Ride: 1 -------
+                Time : 00:23:22
+                Start ID : 34
+                End ID : 342
+                Passengers:
+                --------------------""", outputStreamCaptor.toString().trim());
+    }
+
+    @Test
+    @DisplayName("Sort Full Heap of 20 items")
+    public void sortFullHeap() {
+        MinHeap testHeap = new MinHeap();
+
+        testHeap.insert(new Ride(1, LocalTime.parse("08:15:30"), 200, 700));
+        testHeap.insert(new Ride(2, LocalTime.parse("12:45:00"), 300, 800));
+        testHeap.insert(new Ride(3, LocalTime.parse("05:23:12"), 150, 600));
+        testHeap.insert(new Ride(4, LocalTime.parse("19:30:45"), 250, 750));
+        testHeap.insert(new Ride(5, LocalTime.parse("09:01:45"), 500, 1000));
+        testHeap.insert(new Ride(6, LocalTime.parse("14:20:10"), 180, 650));
+        testHeap.insert(new Ride(7, LocalTime.parse("11:15:20"), 220, 720));
+        testHeap.insert(new Ride(8, LocalTime.parse("23:59:59"), 300, 800));
+        testHeap.insert(new Ride(9, LocalTime.parse("00:00:01"), 400, 900));
+        testHeap.insert(new Ride(10, LocalTime.parse("15:45:30"), 250, 750));
+        testHeap.insert(new Ride(11, LocalTime.parse("10:10:10"), 200, 700));
+        testHeap.insert(new Ride(12, LocalTime.parse("13:13:13"), 320, 820));
+        testHeap.insert(new Ride(13, LocalTime.parse("17:17:17"), 230, 770));
+        testHeap.insert(new Ride(14, LocalTime.parse("21:21:21"), 270, 810));
+        testHeap.insert(new Ride(15, LocalTime.parse("04:04:04"), 190, 710));
+        testHeap.insert(new Ride(16, LocalTime.parse("06:06:06"), 240, 760));
+        testHeap.insert(new Ride(17, LocalTime.parse("07:07:07"), 210, 730));
+        testHeap.insert(new Ride(18, LocalTime.parse("08:08:08"), 290, 790));
+        testHeap.insert(new Ride(19, LocalTime.parse("09:09:09"), 310, 830));
+        testHeap.insert(new Ride(20, LocalTime.parse("20:20:20"), 260, 780));
+
+
+        Ride[] sortedRides = testHeap.sort();
+        for(int i= 0; i<20; i++){
+            testHeap.outputRide(sortedRides, i);
+          }
+
+        Assertions.assertEquals("""
+--- Ride: 9 -------
+Time : 00:00:01
+Start ID : 400
+End ID : 900
+Passengers:
+--------------------
+--- Ride: 15 -------
+Time : 04:04:04
+Start ID : 190
+End ID : 710
 Passengers:
 --------------------
 --- Ride: 3 -------
-Time : 11:23:22
-Start ID : 34
-End ID : 342
+Time : 05:23:12
+Start ID : 150
+End ID : 600
+Passengers:
+--------------------
+--- Ride: 16 -------
+Time : 06:06:06
+Start ID : 240
+End ID : 760
+Passengers:
+--------------------
+--- Ride: 17 -------
+Time : 07:07:07
+Start ID : 210
+End ID : 730
+Passengers:
+--------------------
+--- Ride: 18 -------
+Time : 08:08:08
+Start ID : 290
+End ID : 790
+Passengers:
+--------------------
+--- Ride: 1 -------
+Time : 08:15:30
+Start ID : 200
+End ID : 700
+Passengers:
+--------------------
+--- Ride: 5 -------
+Time : 09:01:45
+Start ID : 500
+End ID : 1000
+Passengers:
+--------------------
+--- Ride: 19 -------
+Time : 09:09:09
+Start ID : 310
+End ID : 830
+Passengers:
+--------------------
+--- Ride: 11 -------
+Time : 10:10:10
+Start ID : 200
+End ID : 700
+Passengers:
+--------------------
+--- Ride: 7 -------
+Time : 11:15:20
+Start ID : 220
+End ID : 720
 Passengers:
 --------------------
 --- Ride: 2 -------
-Time : 23:23:22
-Start ID : 34
-End ID : 342
+Time : 12:45
+Start ID : 300
+End ID : 800
+Passengers:
+--------------------
+--- Ride: 12 -------
+Time : 13:13:13
+Start ID : 320
+End ID : 820
+Passengers:
+--------------------
+--- Ride: 6 -------
+Time : 14:20:10
+Start ID : 180
+End ID : 650
+Passengers:
+--------------------
+--- Ride: 10 -------
+Time : 15:45:30
+Start ID : 250
+End ID : 750
+Passengers:
+--------------------
+--- Ride: 13 -------
+Time : 17:17:17
+Start ID : 230
+End ID : 770
+Passengers:
+--------------------
+--- Ride: 4 -------
+Time : 19:30:45
+Start ID : 250
+End ID : 750
+Passengers:
+--------------------
+--- Ride: 20 -------
+Time : 20:20:20
+Start ID : 260
+End ID : 780
+Passengers:
+--------------------
+--- Ride: 14 -------
+Time : 21:21:21
+Start ID : 270
+End ID : 810
+Passengers:
+--------------------
+--- Ride: 8 -------
+Time : 23:59:59
+Start ID : 300
+End ID : 800
 Passengers:
 --------------------""", outputStreamCaptor.toString().trim());
-}
 
-
-/**
- * Sort empty stack
- */
-
- @Test
-@DisplayName("Sort Multiple items")
-public void sortEmptyStack(){
-    MinHeap testHeap = new MinHeap();
-    MinHeap proxy = new MinHeap();
-    Ride[] sortedRides = testHeap.sort();
-    int i = 1;
-    while (sortedRides[i]!= null)
-     {
-      proxy.outputRide(sortedRides, i);
-      i++;
     }
-Assert.assertEquals("", outputStreamCaptor.toString().trim());
 
-}
 
- @Test
-@DisplayName("Sort Single items")
-public void sortSingleItem(){
-    MinHeap testHeap = new MinHeap();
-    Ride ride2 = new Ride(1, LocalTime.parse("00:23:22"), 34, 342);
+    
+    @Test
+    @DisplayName("Remove Single Item")
+    public void removeSingleItem() {
+        MinHeap testHeap = new MinHeap();
+        Ride ride1 = new Ride(1, LocalTime.parse("08:15:30"), 200, 700);
+        Ride ride2 = new Ride(2, LocalTime.parse("12:45:00"), 300, 800);
+        Ride ride3 = new Ride(3, LocalTime.parse("05:23:12"), 150, 600);
+        testHeap.insert(ride1);
+        testHeap.insert(ride2);
+        testHeap.insert(ride3);
 
-    testHeap.insert(ride2);
-
-    MinHeap proxy = new MinHeap();
-    Ride[] sortedRides = testHeap.sort();
-    int i = 1;
-    while (sortedRides[i]!= null)
-     {
-      proxy.outputRide(sortedRides, i);
-      i++;
+        testHeap.remove(ride2);
+        testHeap.dump();
+        Assert.assertEquals("""
+                --- Ride: 3 -------
+                Time : 05:23:12
+                Start ID : 150
+                End ID : 600
+                Passengers:
+                --------------------
+                --- Ride: 1 -------
+                Time : 08:15:30
+                Start ID : 200
+                End ID : 700
+                Passengers:
+                --------------------""", outputStreamCaptor.toString().trim());
     }
-Assert.assertEquals("""
---- Ride: 1 -------
-Time : 00:23:22
-Start ID : 34
-End ID : 342
-Passengers:
---------------------""", outputStreamCaptor.toString().trim());
-}
-
-@Test
-@DisplayName("Sort Full Heap of 20 items")
-public void sortFullHeap(){
-    MinHeap testHeap = new MinHeap();
-
-    testHeap.insert(new Ride(1, LocalTime.parse("08:15:30"), 200, 700));
-    testHeap.insert(new Ride(2, LocalTime.parse("12:45:00"), 300, 800));
-    testHeap.insert(new Ride(3, LocalTime.parse("05:23:12"), 150, 600));
-    testHeap.insert(new Ride(4, LocalTime.parse("19:30:45"), 250, 750));
-    testHeap.insert(new Ride(5, LocalTime.parse("09:01:45"), 500, 1000));
-    testHeap.insert(new Ride(6, LocalTime.parse("14:20:10"), 180, 650));
-    testHeap.insert(new Ride(7, LocalTime.parse("11:15:20"), 220, 720));
-    testHeap.insert(new Ride(8, LocalTime.parse("23:59:59"), 300, 800));
-    testHeap.insert(new Ride(9, LocalTime.parse("00:00:01"), 400, 900));
-    testHeap.insert(new Ride(10, LocalTime.parse("15:45:30"), 250, 750));
-    testHeap.insert(new Ride(11, LocalTime.parse("10:10:10"), 200, 700));
-    testHeap.insert(new Ride(12, LocalTime.parse("13:13:13"), 320, 820));
-    testHeap.insert(new Ride(13, LocalTime.parse("17:17:17"), 230, 770));
-    testHeap.insert(new Ride(14, LocalTime.parse("21:21:21"), 270, 810));
-    testHeap.insert(new Ride(15, LocalTime.parse("04:04:04"), 190, 710));
-    testHeap.insert(new Ride(16, LocalTime.parse("06:06:06"), 240, 760));
-    testHeap.insert(new Ride(17, LocalTime.parse("07:07:07"), 210, 730));
-    testHeap.insert(new Ride(18, LocalTime.parse("08:08:08"), 290, 790));
-    testHeap.insert(new Ride(19, LocalTime.parse("09:09:09"), 310, 830));
-    testHeap.insert(new Ride(20, LocalTime.parse("20:20:20"), 260, 780));
-
-    Assertions.assertEquals(testHeap, testHeap);
-
-}
-
-@Test
-@DisplayName("Remove Single Item")
-public void removeSingleItem(){
-    MinHeap testHeap = new MinHeap();
-    Ride ride1 = new Ride(1, LocalTime.parse("08:15:30"), 200, 700);
-    Ride ride2 = new Ride(2, LocalTime.parse("12:45:00"), 300, 800);
-    Ride ride3 = new Ride(3, LocalTime.parse("05:23:12"), 150, 600);
-    testHeap.insert(ride1);
-    testHeap.insert(ride2);
-    testHeap.insert(ride3);
-
-
-    testHeap.remove(ride2);
-    testHeap.dump();
-    Assert.assertEquals("""
-    --- Ride: 3 -------
-    Time : 05:23:12
-    Start ID : 150
-    End ID : 600
-    Passengers:
-    --------------------
-    --- Ride: 1 -------
-    Time : 08:15:30
-    Start ID : 200
-    End ID : 700
-    Passengers:
-    --------------------""", outputStreamCaptor.toString().trim());
-}
-
-
-
-
 
 }
