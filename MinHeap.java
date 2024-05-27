@@ -164,21 +164,28 @@ public class MinHeap {
         Ride[] sortedRides = sort();
         int i  = 1;
         int j =0;
-        int passengerCount = 0;
+        int passengerCountRideB = 0;
+        int passengerCountRideA = 0;
+        Ride primaryRide = sortedRides[1];
 
         for (Ride ride : sortedRides) {
 
-            timeDifference = Duration.between(sortedRides[1].requestTime, ride.requestTime);
+            timeDifference = Duration.between(primaryRide.requestTime, ride.requestTime);
             if (timeDifference.toMinutes() <=10) {
-                passengerCount = passengerCount(j, ride.passengerNames);
-                System.out.println(passengerCount);
+                passengerCountRideB = passengerCount(j, ride.passengerNames);
+                passengerCountRideA = passengerCount(1, ride.passengerNames);
+
+                if (passengerCountRideA + passengerCountRideB <= MAX_PASSENGER_CAPACITY) {
+                    combineRides(primaryRide, ride);
+                }
+
+              
             }
-            passengerCount = 0;
+            
             j++;
         }
        
-
-
+        dump();
 
 
        
@@ -186,6 +193,27 @@ public class MinHeap {
 
 
     }
+
+
+    private void combineRides(Ride primaryRide, Ride secondaryRide){
+        String combinedNames = "";
+        LocalTime newRequestTime;
+        if (primaryRide.compareTo(secondaryRide) <= 1) {
+            newRequestTime = primaryRide.requestTime;
+        }
+        else{
+            newRequestTime = secondaryRide.requestTime;
+        }
+        Ride newRide = new Ride(55, newRequestTime, primaryRide.startLocation, secondaryRide.endLocation);
+        combinedNames = combinePassengers(primaryRide, secondaryRide);
+        newRide.addPassenger(combinedNames);
+        remove(primaryRide);
+        remove(secondaryRide);
+        insert(newRide);
+        System.out.println(primaryRide.passengerNames.toString());
+    }
+
+
 
     private int passengerCount(int index, String[] stringArray){
         int passengerCount = 0;
@@ -199,5 +227,17 @@ public class MinHeap {
        // }
 
         return passengerCount;
+    }
+
+    private String combinePassengers(Ride primaryRide, Ride secondaryRide){
+        String overallString = "";
+        for (String name : primaryRide.passengerNames) {
+            overallString = overallString + name + ",";
+        }
+        for (String name : secondaryRide.passengerNames) {
+            overallString = overallString + name + ",";
+        }
+        overallString = overallString.substring(0, overallString.length() - 1);
+        return overallString;
     }
 }
