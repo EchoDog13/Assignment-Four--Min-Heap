@@ -21,20 +21,7 @@ public class Ride implements Comparable<Ride> {
         return this.requestTime.compareTo(otherRide.requestTime);
     }
     public void addPassenger(String passengerNames){
-
         this.passengerNames = passengerNames.split(",");
-
     }
-
-    public void passengerNames(String string) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'passengerNames'");
-    }
-
-    
-
-
-
-
 
 }

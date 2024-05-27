@@ -1,3 +1,5 @@
+import java.time.Duration;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -5,6 +7,7 @@ public class MinHeap {
     Ride[] heap;
     int size = 1;
     private static final int DEFAULT_CAPACITY = 20;
+    private static final int MAX_PASSENGER_CAPACITY = 6;
 
     public MinHeap() {
         this.heap = new Ride[DEFAULT_CAPACITY + 1]; // Add 1 to allow index 1-based heap
@@ -26,11 +29,13 @@ public class MinHeap {
 
     public void insert(Ride r) {
         if (size <= DEFAULT_CAPACITY) {
+            if (r.passengerNames[0]!= null) {
             heap[size] = r;
             upheap(size);
             size++;
+            }}
         }
-    }
+    
 
     private void upheap(int pos) {
         int posChild = pos;
@@ -155,6 +160,44 @@ public class MinHeap {
     }
 
     public void optimise() {
+        Duration timeDifference;
+        Ride[] sortedRides = sort();
+        int i  = 1;
+        int j =0;
+        int passengerCount = 0;
+
+        for (Ride ride : sortedRides) {
+
+            timeDifference = Duration.between(sortedRides[1].requestTime, ride.requestTime);
+            if (timeDifference.toMinutes() <=10) {
+                passengerCount = passengerCount(j, ride.passengerNames);
+                System.out.println(passengerCount);
+            }
+            passengerCount = 0;
+            j++;
+        }
+       
+
+
+
+
+       
         // Method left for implementation as needed
+
+
+    }
+
+    private int passengerCount(int index, String[] stringArray){
+        int passengerCount = 0;
+
+ //for (int i = 0; i < MAX_PASSENGER_CAPACITY; i++) {
+            for (String string : stringArray) {
+                if (string!=null) {
+                    passengerCount++;
+                }
+            }
+       // }
+
+        return passengerCount;
     }
 }
