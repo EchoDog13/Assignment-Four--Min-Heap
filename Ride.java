@@ -24,4 +24,21 @@ public class Ride implements Comparable<Ride> {
         this.passengerNames = passengerNames.split(",");
     }
 
-}
+    public String toString(){
+
+        String out = "";
+        out += "--- Ride: " + rideID + " -------\n";
+        out += "Time : " + requestTime + "\n";
+        out += "Start ID : " + startLocation + "\n";
+        out += "End ID : " + endLocation + "\n";
+        out += "Passengers:\n";
+        for (String item : passengerNames) {
+            if (item != null) {
+                out += item + "\n";
+            }
+        }
+        out += "--------------------";
+        return out;
+    }
+    }
+
