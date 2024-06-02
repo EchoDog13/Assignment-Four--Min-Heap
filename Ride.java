@@ -1,17 +1,16 @@
 import java.time.LocalTime;
 
-
 public class Ride implements Comparable<Ride> {
-     int rideID;
-     LocalTime requestTime;
-     String[] passengerNames = new String[5];
-     int startLocation;
-     int endLocation;
-     
+    int rideID;
+    LocalTime requestTime;
+    String[] passengerNames = new String[5];
+    int startLocation;
+    int endLocation;
+
     public Ride(int rideID, LocalTime requestTime, int startLocation, int endLocation) {
         this.rideID = rideID;
         this.requestTime = requestTime;
-       // this.passengerNames =  passengerNames.split(",");
+        // this.passengerNames = passengerNames.split(",");
         this.startLocation = startLocation;
         this.endLocation = endLocation;
     }
@@ -20,11 +19,12 @@ public class Ride implements Comparable<Ride> {
     public int compareTo(Ride otherRide) {
         return this.requestTime.compareTo(otherRide.requestTime);
     }
-    public void addPassenger(String passengerNames){
+
+    public void addPassenger(String passengerNames) {
         this.passengerNames = passengerNames.split(",");
     }
 
-    public String toString(){
+    public String toString() {
 
         String out = "";
         out += "--- Ride: " + rideID + " -------\n";
@@ -40,5 +40,4 @@ public class Ride implements Comparable<Ride> {
         out += "--------------------";
         return out;
     }
-    }
-
+}
