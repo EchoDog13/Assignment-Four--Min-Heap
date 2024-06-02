@@ -1102,7 +1102,7 @@ public class MinHeapTests {
 
         Ride[] sortedRides = testHeap.sort();
         for (Ride ride : sortedRides) {
-            System.out.println(ride);
+            System.out.println(ride.toString());
         }
 
         Assertions.assertEquals("""
@@ -1391,5 +1391,201 @@ Hannah
 Mariam
 --------------------""", outputStreamCaptor.toString().trim());
     }
+
+
+
+
+/*Optimise Tests */
+
+    @Test
+    @DisplayName("")
+    public void optimiseEmptyHeap(){
+        MinHeap testHeap = new MinHeap();
+
+      //  Ride ride1 = new Ride(1, LocalTime.parse("08:15:30"), 52, 22);
+      //  ride1.addPassenger("1,2,3");
+        //testHeap.insert(ride1);
+      //  testHeap.insert(ride1);
+        Ride[] s = new Ride[20];
+
+        s = testHeap.optimise();  
+
+        for (Ride ride : s) {
+            if (ride != null) {
+                System.out.println(ride.toString());
+            }
+        }
+
+        Assertions.assertEquals("", outputStreamCaptor.toString().trim());
+    }
+
+
+    @Test
+    @DisplayName("Optimise single item heap")
+    public void optimiseSingleItem(){
+        MinHeap testHeap = new MinHeap();
+
+        Ride ride1 = new Ride(1, LocalTime.parse("08:15:30"), 52, 22);
+       ride1.addPassenger("1,2,3");
+        testHeap.insert(ride1);
+       
+        Ride[] s = new Ride[20];
+
+        s = testHeap.optimise();  
+
+        for (Ride ride : s) {
+            if (ride != null) {
+                System.out.println(ride.toString());
+            }
+        }
+
+        Assertions.assertEquals("""
+        --- Ride: 1 -------
+        Time : 08:15:30
+        Start ID : 52
+        End ID : 22
+        Passengers:
+        1
+        2
+        3
+        --------------------""", outputStreamCaptor.toString().trim());
+    }
+
+    @Test
+    @DisplayName("Optimise multiple items and combine rides")
+    public void optimsieCombineMultipleRides(){
+        MinHeap testHeap = new MinHeap();
+    Ride[] rides = new Ride[20];
+    Ride ride3 = new Ride(3, LocalTime.parse("01:11:00"), 34, 342);
+    Ride ride2 = new Ride(2, LocalTime.parse("01:09:01"), 34, 342);
+    Ride ride1 = new Ride(1, LocalTime.parse("01:00:00"), 34, 342);
+    Ride ride4 = new Ride(1, LocalTime.parse("01:09:00"), 34, 342);
+
+    ride1.addPassenger("Person A");
+    ride2.addPassenger("Person B,Person C");
+    ride3.addPassenger("Téa,Caleb");
+    ride4.addPassenger("Jamie,Jacob");
+
+    testHeap.insert(ride1);
+    testHeap.insert(ride2);
+    testHeap.insert(ride3);
+    testHeap.insert(ride4);
+
+    //testHeap.dump();
+//    System.out.println(ride1.toString());
+   rides = testHeap.optimise();
+
+  for (Ride ride : rides) {
+    if (ride != null) {
+     System.out.println(ride);
+    }
+  }
+    }
+
+    @Test
+    @DisplayName("Optimise multiple items and combine rides")
+    public void optimiseCombineMultipleRides(){
+        MinHeap testHeap = new MinHeap();
+    Ride[] rides = new Ride[20];
+    Ride ride3 = new Ride(3, LocalTime.parse("01:11:00"), 34, 342);
+    Ride ride2 = new Ride(2, LocalTime.parse("01:09:01"), 34, 342);
+    Ride ride1 = new Ride(1, LocalTime.parse("01:00:00"), 34, 342);
+    Ride ride4 = new Ride(1, LocalTime.parse("01:09:00"), 34, 342);
+
+    ride1.addPassenger("Person A");
+    ride2.addPassenger("Person B,Person C");
+    ride3.addPassenger("Téa,Caleb");
+    ride4.addPassenger("Jamie,Jacob");
+
+    testHeap.insert(ride1);
+    testHeap.insert(ride2);
+    testHeap.insert(ride3);
+    testHeap.insert(ride4);
+
+    //testHeap.dump();
+//    System.out.println(ride1.toString());
+   rides = testHeap.optimise();
+
+  for (Ride ride : rides) {
+    if (ride != null) {
+     System.out.println(ride);
+    }
+  }
+
+  Assert.assertEquals("""
+    --- Ride: 1 -------
+    Time : 01:00
+    Start ID : 34
+    End ID : 342
+    Passengers:
+    Person A
+    Jamie
+    Jacob
+    --------------------
+    --- Ride: 2 -------
+    Time : 01:09:01
+    Start ID : 34
+    End ID : 342
+    Passengers:
+    Person B
+    Person C
+    Téa
+    Caleb
+    --------------------""", outputStreamCaptor.toString().trim());
+
+
+}
+
+@Test
+@DisplayName("Reject combine due to passenger count")
+public void rejectCombineHighPassengerCount(){
+
+
+    MinHeap testHeap = new MinHeap();
+    Ride[] rides = new Ride[20];
+
+    Ride ride2 = new Ride(2, LocalTime.parse("01:09:01"), 34, 342);
+    Ride ride1 = new Ride(1, LocalTime.parse("01:00:00"), 34, 342);
+
+    ride1.addPassenger("A,B,C,D");
+    ride2.addPassenger("E,F,G,H");
+
+    testHeap.insert(ride1);
+    testHeap.insert(ride2);
+
+    rides = testHeap.optimise();
+
+    for (Ride ride : rides) {
+        if (ride != null) {
+         System.out.println(ride);
+        }
+
+    Assert.assertEquals("""
+        --- Ride: 1 -------
+        Time : 01:00
+        Start ID : 34
+        End ID : 342
+        Passengers:
+        A
+        B
+        C
+        D
+        --------------------
+        --- Ride: 2 -------
+        Time : 01:09:01
+        Start ID : 34
+        End ID : 342
+        Passengers:
+        E
+        F
+        G
+        H
+        --------------------
+            """, outputStreamCaptor.toString().trim());
+
+}
+
+}
+    
 }
     

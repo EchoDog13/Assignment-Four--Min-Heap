@@ -43,4 +43,16 @@ Insert New Ride
 Remove old rides
 
 Questions:
-Do we first need to check if the ride ID is unique, or do we assume they are unique?
+
+
+OPTIMISATION Tests:
+
+optomise empty heap
+optomise heap with one item
+optomise successfully with multiple items
+
+optimise three rides  2 people eachwithin 10 minutes
+optimise two ride, 7 people totals
+
+optimise rides with different locations IDs
+optomise ride with same location items
