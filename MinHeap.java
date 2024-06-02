@@ -14,6 +14,9 @@ public class MinHeap {
         this.heap = new Ride[DEFAULT_CAPACITY + 1]; // Add 1 to allow index 1-based heap
     }
 
+   
+
+
     public void heapify(Ride[] rides, int rideNum) {
         if (rideNum > DEFAULT_CAPACITY) {
             // If more than 20 rides are provided, do not modify the heap
@@ -157,7 +160,7 @@ public class MinHeap {
 
     public Ride[] sort() {
         Ride[] tempHeap = heap.clone(); // Copy the original heap
-        Ride[] sortedRides = new Ride[size - 1]; // Array to hold the sorted rides
+       Ride[] sortedRides = new Ride[size - 1]; // Array to hold the sorted rides
 
         int a = 0;
         while (size > 1) { // Continue until the heap is empty
@@ -171,10 +174,13 @@ public class MinHeap {
     }
 
     public Ride[] optimise() {
+        ArrayList<Ride> sortedRides = new ArrayList<>(Arrays.asList());
+        sortedRides = returnHeapInOrder();
+ 
+
         Duration timeDifferenceA;
         Duration timeDifferenceB;
       //  Ride[] sortedRides = sort();
-      ArrayList<Ride> sortedRides = new ArrayList<>(Arrays.asList(sort()));
 
         int passengerCountRideB = 0;
         int passengerCountRideA = 0;
@@ -200,12 +206,13 @@ public class MinHeap {
                passengerCountRideA = passengerCount(ride2.passengerNames);
 
                 if (passengerCountRideA + passengerCountRideB <= MAX_PASSENGER_CAPACITY) {
-                    combineRides(ride, ride2, sortedRides);
+                    sortedRides = combineRides(ride, ride2, sortedRides);
                     //NEED TO REMOVE RIDES
                    //sortedRides.set(i, null); // Mark the first ride for removal
                 // sortedRides.set(j, null); // Mark the second ride for removal
                   sortedRides.remove(ride);
                   sortedRides.remove(ride2);
+                  
                   i = -1; 
                     break; // Move to the next ride after combining
                 }
@@ -213,16 +220,22 @@ public class MinHeap {
         }
     }
 
-}
+   
 
+}
     Ride[] rideArray = sortedRides.toArray(new Ride[MAX_PASSENGER_CAPACITY]);
 
        heapify(rideArray, sortedRides.size());
-        return rideArray;
+        sortedRides = returnHeapInOrder();
+
+    Ride[] rideArraySorted = sortedRides.toArray(new Ride[MAX_PASSENGER_CAPACITY]);
+
+
+        return rideArraySorted;
     }
 
 
-    private void combineRides(Ride primaryRide, Ride secondaryRide, ArrayList<Ride> sorteRides){
+    private ArrayList<Ride> combineRides(Ride primaryRide, Ride secondaryRide, ArrayList<Ride> sortedRides){
         String combinedNames = "";
         LocalTime newRequestTime;
         if (primaryRide.compareTo(secondaryRide) <= 1) {
@@ -235,7 +248,9 @@ public class MinHeap {
         combinedNames = combinePassengers(primaryRide, secondaryRide);
         newRide.addPassenger(combinedNames);
 
-        sorteRides.add(newRide);
+        sortedRides.add(newRide);
+
+        return sortedRides;
     }
 
     private int passengerCount( String[] stringArray){
@@ -262,6 +277,23 @@ public class MinHeap {
     }
 
 
+
+    private ArrayList<Ride> returnHeapInOrder(){
+        ArrayList<Ride> heapInOrder = new ArrayList<>();
+            for(int i = 0; i<=heapInOrder.size(); i++){
+                if (heap[1] != null) {
+                    heapInOrder.add(heap[1]);
+                    remove(heap[1]);
+                }
+              
+            }
+            
+            
+               
+            
+
+            return heapInOrder;
+    }
 
 
 
