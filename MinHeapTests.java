@@ -6,19 +6,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.LocalTime;
 
-public class MinHeapTests {
+/**
+ * Tests to check the implementation of a Min Heap for a ride sharing
+ * implementation
+ */
 
-    /**
-     * Importing Test
-     * insert(Ride r)
-     * empty heap
-     * heap with item
-     * heap as last node
-     * heap in middle node
-     * heap in root node
-     * 
-     * @return
-     */
+public class MinHeapTests {
 
     // stores the output of the console output in standard out
     private final PrintStream standardOut = System.out;
@@ -27,7 +20,7 @@ public class MinHeapTests {
 
     /**
      * Before each test is run, sets output print stream to outputStreamCaptor to
-     * capture output. This is used to test the dump method
+     * capture output.
      */
     @BeforeEach
     public void setOut() {
@@ -44,6 +37,10 @@ public class MinHeapTests {
 
     /* COMPARTER TESTS */
 
+    /**
+     * Tests if it can correctly compare times, first item is less than the second
+     * item
+     */
     @Test
     @DisplayName("Comparator Test: First item is less than second item, large time difference")
     public void testComparatorFirstLessThanSecondLarge() {
@@ -53,6 +50,10 @@ public class MinHeapTests {
         Assert.assertEquals(-1, rides[0].compareTo(rides[1]));
     }
 
+    /**
+     * Tests if it can correctly compare times, first item is less than the second
+     * item
+     */
     @Test
     @DisplayName("Comparator Test: First item is less than second item, small time difference")
     public void testComparatorFirstLessThanSecondSmall() {
@@ -62,6 +63,10 @@ public class MinHeapTests {
         Assert.assertEquals(-1, rides[0].compareTo(rides[1]));
     }
 
+    /**
+     * Tests if it can correctly compare times, first item is greater than the
+     * second item, with a large time difference
+     */
     @Test
     @DisplayName("Comparator Test: First item is greater than second item, large time difference")
     public void testComparatorGreatherThanSecondLarge() {
@@ -71,6 +76,10 @@ public class MinHeapTests {
         Assert.assertEquals(1, rides[0].compareTo(rides[1]));
     }
 
+    /**
+     * Tests if it can correctly compare times, first item is greater than the
+     * second item, with a small time difference
+     */
     @Test
     @DisplayName("Comparator Test: First item is greater than second item, small time difference")
     public void testComparatorFirstGreaterThanSecondSmall() {
@@ -79,6 +88,11 @@ public class MinHeapTests {
         rides[0] = new Ride(1, LocalTime.parse("10:00:02"), 700, 999);
         Assert.assertEquals(1, rides[0].compareTo(rides[1]));
     }
+
+    /**
+     * Tests if it can correctly compare times, first item is equal to the second
+     * item
+     */
 
     @Test
     @DisplayName("Comparator Test: First item is equal to second item")
@@ -89,6 +103,10 @@ public class MinHeapTests {
         Assert.assertEquals(0, rides[0].compareTo(rides[1]));
     }
 
+    /**
+     * Tests if it can correctly compare times, first item is equal to the second
+     * item
+     */
     @Test
     @DisplayName("Comparator Test: First item is equal to second item")
     public void testComparatorFirstEqualSecond() {
@@ -100,6 +118,9 @@ public class MinHeapTests {
 
     /** INSERT TESTS */
 
+    /**
+     * Inserts a valid ride to an empty heap
+     */
     @Test
     @DisplayName("Insert Valid Ride to Empty Heap #1")
     public void insertValidRide1() {
@@ -124,6 +145,10 @@ public class MinHeapTests {
                 --------------------""", outputStreamCaptor.toString().trim());
     }
 
+    /**
+     * Inserts a valid ride to an empty heap
+     */
+
     @Test
     @DisplayName("Insert Valid Ride to Empty Heap #2")
     public void insertValidRide2() {
@@ -147,6 +172,9 @@ public class MinHeapTests {
                 --------------------""", outputStreamCaptor.toString().trim());
     }
 
+    /**
+     * Add passenger names to a ride
+     */
     @Test
     @DisplayName("Add Passenger Names")
     public void addPassengerNames1() {
@@ -154,6 +182,7 @@ public class MinHeapTests {
         Ride ridetoAdd = new Ride(1, LocalTime.parse("23:00:12"), 34, 33);
         ridetoAdd.addPassenger("A,B,C");
         testHeap.insert(ridetoAdd);
+        // Output
         testHeap.dump();
         Assertions.assertEquals("""
                 --- Ride: 1 -------
@@ -167,6 +196,9 @@ public class MinHeapTests {
                 --------------------""", outputStreamCaptor.toString().trim());
     }
 
+    /**
+     * Add passenger names to a ride
+     */
     @Test
     @DisplayName("Add Passenger Names 2")
     public void addPassengerNames2() {
@@ -187,6 +219,9 @@ public class MinHeapTests {
                 --------------------""", outputStreamCaptor.toString().trim());
     }
 
+    /**
+     * Insert multiple valid rides into heap
+     */
     @Test
     @DisplayName("Insert multiple valids Ride")
     public void insertMultipleRides() {
@@ -267,7 +302,7 @@ public class MinHeapTests {
 
     /**
      * Insert Heapify Array with more than 20 items
-     * Empty Heap
+     * Should reject and non add in any items
      */
     @Test
     @DisplayName("Insert Heapify Array with more than 20 items")
@@ -338,11 +373,12 @@ public class MinHeapTests {
         rides[20].addPassenger("Ava,Jack,Nora");
 
         testHeap.heapify(rides, 21);
+        testHeap.dump();
         Assertions.assertEquals("", outputStreamCaptor.toString().trim());
     }
 
     /**
-     * Insert Heapify Array with 20 items
+     * Insert Heapify Array with 20 items into empty heap, should intsert iems
      * Empty Heap
      */
 
@@ -599,7 +635,7 @@ public class MinHeapTests {
     }
 
     /**
-     * 
+     * Insert items into heap using heapify
      * Expected Behaviour is that the entire heap is replaced
      */
     @Test
@@ -820,10 +856,7 @@ public class MinHeapTests {
     }
 
     /**
-     * ISEMPTY TEST:
-     */
-    /**
-     * Is Empty Test on Empty stack
+     * Is Empty Test on Empty stack test
      */
     @Test
     @DisplayName("Is Empty on Empty stack")
@@ -833,7 +866,7 @@ public class MinHeapTests {
     }
 
     /**
-     * Is Empty on non empty stack
+     * Is Empty on non empty stack test, should return flase
      */
     @Test
     @DisplayName("Is Empty on non empty heap")
@@ -846,7 +879,7 @@ public class MinHeapTests {
     }
 
     /**
-     * Is Empty on stack with multiple items
+     * Is Empty on heap with multiple items, should return false.
      */
     @Test
     @DisplayName("Is Empty on non empty stack")
@@ -861,6 +894,9 @@ public class MinHeapTests {
         Assertions.assertFalse(testHeap.isEmpty());
     }
 
+    /**
+     * Is empty on modified heap, should return true
+     */
     @Test
     @DisplayName("Is Empty on stack with item added and removed")
     public void isEmptyonModifiedStack() {
@@ -872,7 +908,9 @@ public class MinHeapTests {
     }
 
     /** PEEK TESTS */
-
+    /**
+     * Peek on empty stack
+     */
     @Test
     @DisplayName("Peek on empty stack")
     public void peekEmptyStack() {
@@ -880,6 +918,9 @@ public class MinHeapTests {
         Assertions.assertEquals("", outputStreamCaptor.toString().trim());
     }
 
+    /**
+     * Peek at modified heap, should return ""
+     */
     @Test
     @DisplayName("Peek on stack with item added and removed")
     public void peekEmptyStackModified() {
@@ -890,6 +931,9 @@ public class MinHeapTests {
         Assertions.assertEquals("", outputStreamCaptor.toString().trim());
     }
 
+    /**
+     * Peek on stack with 1 item, should return single item
+     */
     @Test
     @DisplayName("Peek non empty stack single item")
     public void peekNonEmptyStackSingle() {
@@ -910,6 +954,9 @@ public class MinHeapTests {
 
     }
 
+    /**
+     * Peek on stack with single item, should return item
+     */
     @Test
     @DisplayName("Peek non empty stack single item")
     public void peekMultipleItemStack() {
@@ -970,7 +1017,7 @@ public class MinHeapTests {
     }
 
     /**
-     * Sort Tests
+     * Sort Test: Check if it sorts the rides into chronological order correclty
      */
     @Test
     @DisplayName("Sort Multiple items")
@@ -1025,7 +1072,7 @@ public class MinHeapTests {
     }
 
     /**
-     * Sort empty stack
+     * Sort empty stack, should output ""
      */
 
     @Test
@@ -1042,8 +1089,11 @@ public class MinHeapTests {
 
     }
 
+    /**
+     * Sort stack with a single item, should output item
+     */
     @Test
-    @DisplayName("Sort Single items")
+    @DisplayName("Sort Single item")
     public void sortSingleItem() {
         MinHeap testHeap = new MinHeap();
         Ride ride2 = new Ride(1, LocalTime.parse("00:23:22"), 34, 342);
@@ -1065,11 +1115,15 @@ public class MinHeapTests {
                 --------------------""", outputStreamCaptor.toString().trim());
     }
 
+    /**
+     * Sort stack with 20 items, should sort stack into chronological order and
+     * output in that order
+     */
     @Test
     @DisplayName("Sort Full Heap of 20 items")
     public void sortFullHeap() {
         MinHeap testHeap = new MinHeap();
-        
+
         Ride rides[] = new Ride[20];
         rides[0] = new Ride(57, LocalTime.parse("08:15:30"), 200, 700);
         rides[1] = new Ride(42, LocalTime.parse("12:45:00"), 300, 800);
@@ -1103,168 +1157,171 @@ public class MinHeapTests {
             }
         }
         Assertions.assertEquals("""
-            --- Ride: 82 -------
-            Time : 02:39:14
-            Start ID : 205
-            End ID : 705
-            Passengers:
-            A
-            B
-            --------------------
-            --- Ride: 99 -------
-            Time : 03:50:20
-            Start ID : 350
-            End ID : 850
-            Passengers:
-            A
-            B
-            --------------------
-            --- Ride: 88 -------
-            Time : 04:45:30
-            Start ID : 360
-            End ID : 860
-            Passengers:
-            A
-            B
-            --------------------
-            --- Ride: 86 -------
-            Time : 05:23:12
-            Start ID : 150
-            End ID : 600
-            Passengers:
-            A
-            B
-            --------------------
-            --- Ride: 34 -------
-            Time : 06:12:34
-            Start ID : 320
-            End ID : 770
-            Passengers:
-            A
-            B
-            --------------------
-            --- Ride: 63 -------
-            Time : 07:37:11
-            Start ID : 265
-            End ID : 765
-            Passengers:
-            A
-            B
-            --------------------
-            --- Ride: 57 -------
-            Time : 08:15:30
-            Start ID : 200
-            End ID : 700
-            Passengers:
-            A
-            B
-            --------------------
-            --- Ride: 17 -------
-            Time : 09:13:55
-            Start ID : 290
-            End ID : 790
-            Passengers:
-            A
-            B
-            --------------------
-            --- Ride: 72 -------
-            Time : 10:50:05
-            Start ID : 180
-            End ID : 680
-            Passengers:
-            A
-            B
-            --------------------
-            --- Ride: 14 -------
-            Time : 11:44:33
-            Start ID : 315
-            End ID : 815
-            Passengers:
-            A
-            B
-            --------------------
-            --- Ride: 42 -------
-            Time : 12:45
-            Start ID : 300
-            End ID : 800
-            Passengers:
-            A
-            B
-            --------------------
-            --- Ride: 51 -------
-            Time : 13:57:19
-            Start ID : 210
-            End ID : 710
-            Passengers:
-            A
-            B
-            --------------------
-            --- Ride: 23 -------
-            Time : 14:05:10
-            Start ID : 275
-            End ID : 725
-            Passengers:
-            A
-            B
-            --------------------
-            --- Ride: 90 -------
-            Time : 15:18:06
-            Start ID : 185
-            End ID : 685
-            Passengers:
-            A
-            B
-            --------------------
-            --- Ride: 45 -------
-            Time : 17:22:48
-            Start ID : 240
-            End ID : 740
-            Passengers:
-            A
-            B
-            --------------------
-            --- Ride: 76 -------
-            Time : 18:03:23
-            Start ID : 330
-            End ID : 780
-            Passengers:
-            A
-            B
-            --------------------
-            --- Ride: 15 -------
-            Time : 19:30:45
-            Start ID : 250
-            End ID : 750
-            Passengers:
-            A
-            B
-            --------------------
-            --- Ride: 28 -------
-            Time : 20:28:49
-            Start ID : 195
-            End ID : 695
-            Passengers:
-            A
-            B
-            --------------------
-            --- Ride: 61 -------
-            Time : 21:35:47
-            Start ID : 225
-            End ID : 675
-            Passengers:
-            A
-            B
-            --------------------
-            --- Ride: 37 -------
-            Time : 23:25:42
-            Start ID : 355
-            End ID : 855
-            Passengers:
-            A
-            B
-            --------------------""", outputStreamCaptor.toString().trim());
+                --- Ride: 82 -------
+                Time : 02:39:14
+                Start ID : 205
+                End ID : 705
+                Passengers:
+                A
+                B
+                --------------------
+                --- Ride: 99 -------
+                Time : 03:50:20
+                Start ID : 350
+                End ID : 850
+                Passengers:
+                A
+                B
+                --------------------
+                --- Ride: 88 -------
+                Time : 04:45:30
+                Start ID : 360
+                End ID : 860
+                Passengers:
+                A
+                B
+                --------------------
+                --- Ride: 86 -------
+                Time : 05:23:12
+                Start ID : 150
+                End ID : 600
+                Passengers:
+                A
+                B
+                --------------------
+                --- Ride: 34 -------
+                Time : 06:12:34
+                Start ID : 320
+                End ID : 770
+                Passengers:
+                A
+                B
+                --------------------
+                --- Ride: 63 -------
+                Time : 07:37:11
+                Start ID : 265
+                End ID : 765
+                Passengers:
+                A
+                B
+                --------------------
+                --- Ride: 57 -------
+                Time : 08:15:30
+                Start ID : 200
+                End ID : 700
+                Passengers:
+                A
+                B
+                --------------------
+                --- Ride: 17 -------
+                Time : 09:13:55
+                Start ID : 290
+                End ID : 790
+                Passengers:
+                A
+                B
+                --------------------
+                --- Ride: 72 -------
+                Time : 10:50:05
+                Start ID : 180
+                End ID : 680
+                Passengers:
+                A
+                B
+                --------------------
+                --- Ride: 14 -------
+                Time : 11:44:33
+                Start ID : 315
+                End ID : 815
+                Passengers:
+                A
+                B
+                --------------------
+                --- Ride: 42 -------
+                Time : 12:45
+                Start ID : 300
+                End ID : 800
+                Passengers:
+                A
+                B
+                --------------------
+                --- Ride: 51 -------
+                Time : 13:57:19
+                Start ID : 210
+                End ID : 710
+                Passengers:
+                A
+                B
+                --------------------
+                --- Ride: 23 -------
+                Time : 14:05:10
+                Start ID : 275
+                End ID : 725
+                Passengers:
+                A
+                B
+                --------------------
+                --- Ride: 90 -------
+                Time : 15:18:06
+                Start ID : 185
+                End ID : 685
+                Passengers:
+                A
+                B
+                --------------------
+                --- Ride: 45 -------
+                Time : 17:22:48
+                Start ID : 240
+                End ID : 740
+                Passengers:
+                A
+                B
+                --------------------
+                --- Ride: 76 -------
+                Time : 18:03:23
+                Start ID : 330
+                End ID : 780
+                Passengers:
+                A
+                B
+                --------------------
+                --- Ride: 15 -------
+                Time : 19:30:45
+                Start ID : 250
+                End ID : 750
+                Passengers:
+                A
+                B
+                --------------------
+                --- Ride: 28 -------
+                Time : 20:28:49
+                Start ID : 195
+                End ID : 695
+                Passengers:
+                A
+                B
+                --------------------
+                --- Ride: 61 -------
+                Time : 21:35:47
+                Start ID : 225
+                End ID : 675
+                Passengers:
+                A
+                B
+                --------------------
+                --- Ride: 37 -------
+                Time : 23:25:42
+                Start ID : 355
+                End ID : 855
+                Passengers:
+                A
+                B
+                --------------------""", outputStreamCaptor.toString().trim());
     }
 
+    /**
+     * Sorting boundary test with closely related times
+     */
     @Test
     @DisplayName("Sort closely related times")
     public void sortCloselyRelatedTimes() {
@@ -1315,6 +1372,10 @@ public class MinHeapTests {
                 --------------------""", outputStreamCaptor.toString().trim());
     }
 
+    /**
+     * Remove an item from the heap, should output heap without selected ride which
+     * is removed
+     */
     @Test
     @DisplayName("Remove Single Item")
     public void removeSingleItem() {
@@ -1357,6 +1418,9 @@ public class MinHeapTests {
                 --------------------""", outputStreamCaptor.toString().trim());
     }
 
+    /**
+     * Remove multiple items from a stack in a row
+     */
     @Test
     @DisplayName("Remove multiple items")
     public void removeMultipleItems() {
@@ -1393,6 +1457,9 @@ public class MinHeapTests {
 
     /* Optimise Tests */
 
+    /**
+     * Optimise emtpy heap
+     */
     @Test
     @DisplayName("")
     public void optimiseEmptyHeap() {
@@ -1415,6 +1482,9 @@ public class MinHeapTests {
         Assertions.assertEquals("", outputStreamCaptor.toString().trim());
     }
 
+    /**
+     * Optimise heap with 1 item
+     */
     @Test
     @DisplayName("Optimise single item heap")
     public void optimiseSingleItem() {
@@ -1446,6 +1516,10 @@ public class MinHeapTests {
                 --------------------""", outputStreamCaptor.toString().trim());
     }
 
+    /**
+     * Optimise heap with multiple items, some which can be combined. 3x times
+     * within 10 minutes and all overlap
+     */
     @Test
     @DisplayName("Optimise multiple items and combine rides")
     public void optimiseCombineMultipleRides() {
@@ -1466,8 +1540,6 @@ public class MinHeapTests {
         testHeap.insert(ride3);
         testHeap.insert(ride4);
 
-        // testHeap.dump();
-        // System.out.println(ride1.toString());
         rides = testHeap.optimise();
 
         for (Ride ride : rides) {
@@ -1475,8 +1547,31 @@ public class MinHeapTests {
                 System.out.println(ride);
             }
         }
+
+        Assertions.assertEquals("""
+                --- Ride: 1 -------
+                Time : 01:00
+                Start ID : 34
+                End ID : 342
+                Passengers:
+                Person A
+                Person B
+                Person C
+                --------------------
+                --- Ride: 3 -------
+                Time : 01:11
+                Start ID : 34
+                End ID : 342
+                Passengers:
+                Téa
+                Caleb
+                --------------------""", outputStreamCaptor.toString().trim());
     }
 
+    /**
+     * Optimise heap with multiple items, some which can be combined. 3x times
+     * within 10 overlap and not all overlap
+     */
     @Test
     @DisplayName("Optimise multiple items and combine rides")
     public void optimiseCombineMultipleRidesOverTimeBoundary() {
@@ -1497,13 +1592,9 @@ public class MinHeapTests {
         testHeap.insert(ride3);
         testHeap.insert(ride4);
 
-        // testHeap.dump();
-        // System.out.println(ride1.toString());
         rides = testHeap.optimise();
         for (Ride ride : rides) {
-            // if (ride == null) {
             System.out.println(ride.toString());
-            // }
         }
         Assert.assertEquals("""
                 --- Ride: 1 -------
@@ -1534,6 +1625,9 @@ public class MinHeapTests {
 
     }
 
+    /**
+     * Reject optimise due to more than 6 passengers overall
+     */
     @Test
     @DisplayName("Reject combine due to passenger count")
     public void optimiseRejectCombineHighPassengerCount() {
@@ -1581,6 +1675,10 @@ public class MinHeapTests {
 
     }
 
+    /**
+     * Optimise heap with multiple items, some which can be combined. 2x times
+     * within 10 minutes and not all overlap
+     */
     @Test
     @DisplayName("Combine and non combine rides on optimise")
     public void optimiseCombineAndNonCombineRides() {
@@ -1640,6 +1738,10 @@ public class MinHeapTests {
 
     }
 
+    /**
+     * Optimise with different locations IDs, should reject optimisation and return
+     * as normal
+     */
     @Test
     @DisplayName("Optimise with different location IDs")
     public void optimiseDifferentLocationIDs() {
@@ -1681,8 +1783,10 @@ public class MinHeapTests {
                 Caleb
                 --------------------""", outputStreamCaptor.toString().trim());
     }
-    // TEST Heap Access
 
+    /**
+     * Test to string functionality without passengers, should still print
+     */
     @Test
     @DisplayName("To String without Passengers")
     public void toStringNoPassengers() {
@@ -1698,6 +1802,10 @@ public class MinHeapTests {
                 --------------------""", outputStreamCaptor.toString().trim());
     }
 
+    /**
+     * Test toString funcatility with passengers, should print passenger names as
+     * well as other information
+     */
     @Test
     @DisplayName("To String with Passengers")
     public void toStringPassengers() {
@@ -1717,6 +1825,9 @@ public class MinHeapTests {
                 --------------------""", outputStreamCaptor.toString().trim());
     }
 
+    /**
+     * Insert ride without passenger names, should reject and fail to insert it
+     */
     @Test
     @DisplayName("Insert without Passenger Names with 1 Ride")
     public void invalidNonPassenger1() {
@@ -1728,6 +1839,10 @@ public class MinHeapTests {
 
     }
 
+    /**
+     * Insert ride without passenger names, should reject and fail to insert it for
+     * two rides
+     */
     @Test
     @DisplayName("Insert without Passenger Names with 2 Rides")
     public void invalidNonPassenger2Rides() {
@@ -1741,6 +1856,10 @@ public class MinHeapTests {
 
     }
 
+    /**
+     * Remove an item from the heap that does not exist, should fail to remove and
+     * return.
+     */
     @Test
     @DisplayName("Remove an item in the heap")
     public void removeItemNotInHeap() {
@@ -1765,6 +1884,10 @@ public class MinHeapTests {
 
     }
 
+    /**
+     * Remove item that is not in heap when heap contains another item, should fail
+     * to remove and return.
+     */
     @Test
     @DisplayName("")
     public void removeItemNotInHeap2() {
@@ -1788,8 +1911,12 @@ public class MinHeapTests {
                 --------------------""", outputStreamCaptor.toString().trim());
     }
 
+    /**
+     * Test inserting a ride that has a matching ID to another existing ride, should
+     * fail to insert second ride
+     */
     @Test
-    @DisplayName("")
+    @DisplayName("Insert With Duplicate IDs")
     public void duplicateId1() {
         MinHeap testHeap = new MinHeap();
         Ride ride2 = new Ride(1, LocalTime.parse("01:09:01"), 34, 342);
@@ -1810,8 +1937,13 @@ public class MinHeapTests {
                 C
                 --------------------""", outputStreamCaptor.toString().trim());
     }
+
+    /**
+     * Test inserting a ride that has a matching ID to another existing ride, should
+     * fail to insert second ride
+     */
     @Test
-    @DisplayName("")
+    @DisplayName("Insert with Multiple duplicate IDs")
     public void duplicateId2() {
         MinHeap testHeap = new MinHeap();
         Ride ride2 = new Ride(1, LocalTime.parse("01:09:01"), 34, 342);
@@ -1832,31 +1964,35 @@ public class MinHeapTests {
         testHeap.insert(ride4);
         testHeap.dump();
         Assert.assertEquals("""
---- Ride: 2 -------
-Time : 01:09:01
-Start ID : 34
-End ID : 342
-Passengers:
-A
-B
-C
---------------------
---- Ride: 1 -------
-Time : 01:33:01
-Start ID : 34
-End ID : 342
-Passengers:
-A
-B
-C
---------------------""", outputStreamCaptor.toString().trim());
+                --- Ride: 2 -------
+                Time : 01:09:01
+                Start ID : 34
+                End ID : 342
+                Passengers:
+                A
+                B
+                C
+                --------------------
+                --- Ride: 1 -------
+                Time : 01:33:01
+                Start ID : 34
+                End ID : 342
+                Passengers:
+                A
+                B
+                C
+                --------------------""", outputStreamCaptor.toString().trim());
     }
 
+    /**
+     * Insert an item into a heap that is at capcaity, should fail to insert, and
+     * maintain existing heap
+     */
     @Test
     @DisplayName("Insert to full heap")
-    public void insertOnFullHeap(){
+    public void insertOnFullHeap() {
         MinHeap testHeap = new MinHeap();
-        
+
         Ride rides[] = new Ride[20];
         rides[0] = new Ride(57, LocalTime.parse("08:15:30"), 200, 700);
         rides[1] = new Ride(42, LocalTime.parse("12:45:00"), 300, 800);
@@ -1890,14 +2026,14 @@ C
 
         testHeap.peek();
         Assertions.assertEquals("""
-            --- Ride: 82 -------
-            Time : 02:39:14
-            Start ID : 205
-            End ID : 705
-            Passengers:
-            A
-            B
-            --------------------""", outputStreamCaptor.toString().trim());
+                --- Ride: 82 -------
+                Time : 02:39:14
+                Start ID : 205
+                End ID : 705
+                Passengers:
+                A
+                B
+                --------------------""", outputStreamCaptor.toString().trim());
     }
 
 }
